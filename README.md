@@ -4,7 +4,7 @@ Dieses Projekt bildet die Basis für die Lernsituation 2. Momentan ist die Verwe
 
 Das Netzwerk der Schule ist durch eine Firewall geschützt. Damit der Zugriff auf Github funktioniert müssen Sie zuerst in Git den Proxy setzen mit
 
-git --config global http.proxy http://schule &lt;Benutzername&gt;:&lt;Passwort&gt;@s3:8080
+git --config global http.proxy http://schule\\\\&lt;Benutzername&gt;:&lt;Passwort&gt;@s3:8080
 
 Ersetzen Sie dabei &lt;Benutzername&gt; mit Ihrem Benutzernamen und &lt;Passwort&gt; mit Ihrem Passwort.
 
