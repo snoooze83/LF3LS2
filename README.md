@@ -8,6 +8,7 @@ git --config global http.proxy http://schule\\\\&lt;Benutzername&gt;:&lt;Passwor
 </code>
 Ersetzen Sie dabei <code>&lt;Benutzername&gt;</code> mit Ihrem Benutzernamen und <code>&lt;Passwort&gt;</code> mit Ihrem Passwort.
 
+Wenn Sie schon dabei sind, ändern Sie auch noch den Editor für die Eingabe der Kommentare: <code>git config --global core.editor npp.bat</code>. Die Batch-Datei npp.bat seit dem 2014-06-05 20:15 im Git-Verzeichnis in Tausch-Verzeichnis.
 Gehen Sie wie folgt vor:
 
 1. Klonen Sie das Projekt in Ihr Home-Verzeichnis.
