@@ -6,7 +6,7 @@ Das Netzwerk der Schule ist durch eine Firewall geschützt. Damit der Zugriff au
 <code>
 git --config global http.proxy http://schule\\\\&lt;Benutzername&gt;:&lt;Passwort&gt;@s3:8080
 </code>
-Ersetzen Sie dabei &lt;Benutzername&gt; mit Ihrem Benutzernamen und &lt;Passwort&gt; mit Ihrem Passwort.
+Ersetzen Sie dabei <code>&lt;Benutzername&gt;</code> mit Ihrem Benutzernamen und <code>&lt;Passwort&gt;</code> mit Ihrem Passwort.
 
 Gehen Sie wie folgt vor:
 
