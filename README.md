@@ -3,10 +3,10 @@ LF3LS2
 Dieses Projekt bildet die Basis für die Lernsituation 2. Momentan ist die Verwendung der in Eclipse integrierten Git-Unterstützung noch nicht in der Schule verfügbar, deshalb ist der Prozess zur Zeit etwas umständlich. Das wird aber besser, wenn in der Schule Eclipse aktualisiert wird (wahrscheinlich in den Sommerferien).
 
 Das Netzwerk der Schule ist durch eine Firewall geschützt. Damit der Zugriff auf Github funktioniert müssen Sie zuerst in Git den Proxy setzen mit
-
-git --config global http.proxy http://schule\\<Benutzername>:<Passwort>@s3:8080
-
-Ersetzen Sie dabei <Benutzername> mit Ihrem Benutzernamen und <Passwort> mit Ihrem Passwort.
+<code>
+git --config global http.proxy http://schule\\\\&lt;Benutzername&gt;:&lt;Passwort&gt;@s3:8080
+</code>
+Ersetzen Sie dabei <code>&lt;Benutzername&gt;</code> mit Ihrem Benutzernamen und <code>&lt;Passwort&gt;</code> mit Ihrem Passwort.
 
 Gehen Sie wie folgt vor:
 
