@@ -25,24 +25,14 @@ import javax.swing.JToolBar;
 public class JumpAndRun extends JFrame implements ActionListener {
 
 	// attributes
-	private GamePanel jpnlCenter;
+	private GameController controller = new GameController();
 	private JPanel jpnlSouth;
-	
-	private JButton jbtnStart;
-	private JButton jbtnConfigure;
-	private JButton jbtnInfo;
-	private JButton jbtnExit;
-	
+		
 	private JMenuBar jmbMenu;
-	private JMenuItem jmiNew;
-	/* prepared menu for loading and saving
-	private JMenuItem jmiOpen;
-	private JMenuItem jmiSave;
-	private JMenuItem jmiSaveAs;
-	*/
+	private JMenuItem jmiStart;
+	private JMenuItem jmiHighScore;
+	private JMenuItem jmiAbout;
 	private JMenuItem jmiExit;
-	private JButton jtbbtnNew;
-	private JButton jtbbtnInformation;
 	
 	public JumpAndRun(String title) {
 		super(title);
@@ -50,18 +40,15 @@ public class JumpAndRun extends JFrame implements ActionListener {
 		// The program shall be closed, if the user presses the
 		// close button in the window title bar.
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(600, 300);
+		setSize(800, 600);
 		
 		// Use the border layout manager in the content pane.
 		Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());
 		
-		// Create a panel in the center of the frame. This is
-		// the area were the game screen will appear.
-		jpnlCenter = new GamePanel();
-		jpnlCenter.setLayout(null);
-		jpnlCenter.setDoubleBuffered(true);
-		cp.add(BorderLayout.CENTER, jpnlCenter);
+		// Add the game panel in the center of the frame. This is
+		// the area were the game screen will appear.	
+		cp.add(BorderLayout.CENTER, controller.getPanel());
 		
 		// Create a menu bar in the frame.
 		createMenuBar();
@@ -84,27 +71,29 @@ public class JumpAndRun extends JFrame implements ActionListener {
 		setJMenuBar(jmbMenu);
 		
 		// Create the File menu.
-		JMenu jmuFile = new JMenu("File");
-		jmbMenu.add(jmuFile);
+		JMenu jmuGame = new JMenu("Game");
+		jmbMenu.add(jmuGame);
 		
-		jmiNew = new JMenuItem("New");
-		jmuFile.add(jmiNew);
-		jmiNew.addActionListener(this);
+		jmiStart = new JMenuItem("Start");
+		jmuGame.add(jmiStart);
+		jmiStart.addActionListener(this);
 
-		/* Prepared menu for loading and saving, but not used yet
-		jmiOpen = new JMenuItem("Open...");
-		jmuFile.add(jmiOpen);
-		jmuFile.add(new JSeparator());
-		jmiSave = new JMenuItem("Save");
-		jmuFile.add(jmiSave);
-		jmiSaveAs = new JMenuItem("Save As...");
-		jmuFile.add(jmiSaveAs);
-		*/
+		jmuGame.add(new JSeparator());
+		jmiHighScore = new JMenuItem("High scores");
+		jmuGame.add(jmiHighScore);
 		
-		jmuFile.add(new JSeparator());
+		jmuGame.add(new JSeparator());
 		jmiExit = new JMenuItem("Exit");
-		jmuFile.add(jmiExit);
+		jmuGame.add(jmiExit);
 		jmiExit.addActionListener(this);
+
+		// Create the Help menu.
+		JMenu jmuHelp = new JMenu("Help");
+		jmbMenu.add(jmuHelp);
+		jmiAbout = new JMenuItem("About");
+		jmuHelp.add(jmiAbout);
+		jmiAbout.addActionListener(this);
+
 	}
 
 	
@@ -114,20 +103,15 @@ public class JumpAndRun extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == jbtnStart || e.getSource() == jmiNew
-				|| e.getSource() == jtbbtnNew) {
+		if (e.getSource() == jmiStart) {
 			startGame();
 		}
 		
-		if (e.getSource() == jbtnConfigure) {
-			configure();
-		}
-		
-		if (e.getSource() == jbtnInfo || e.getSource() == jtbbtnInformation) {
+		if (e.getSource() == jmiAbout) {
 			information();
 		}
 		
-		if (e.getSource() == jbtnExit || e.getSource() == jmiExit) {
+		if (e.getSource() == jmiExit) {
 			exit();
 		}
 		
@@ -137,7 +121,7 @@ public class JumpAndRun extends JFrame implements ActionListener {
 	 * This method starts the game.
 	 */
 	private void startGame() {
-		jpnlCenter.start();
+		controller.start();
 	}
 
 	/**
@@ -156,8 +140,9 @@ public class JumpAndRun extends JFrame implements ActionListener {
 	 * Display an information dialog.
 	 */
 	private void information() {
-
-		// TODO Fügen Sie hier einen Dialog zum Anzeigen eines Informationsdialogs ein.
+		JOptionPane.showMessageDialog(this,
+				"This magnificent game was brought to you by DerSuessmann.\n\n Copyleft, 2014 DerSuessmann", 
+				"About", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	/**

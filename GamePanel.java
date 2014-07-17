@@ -1,74 +1,92 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
+ * This class implements a game panel. The game panel implements
+ * the main game functionality. 
  * 
- */
-
-/**
- * @author sue
+ * @author B. Suessmann
  *
  */
-public class GamePanel extends JPanel implements ActionListener {
+public class GamePanel extends JPanel {
 	
-	// x- und y-Position für zu zeichnende Objekte
-	private int x = 0, y = 0;
-	// Timer der alle 10 Millisekunden ein Ereignis auslöst
-	// Der Event-Handler ist dieses Objekt
-	private Timer timer = new Timer(10, this);
+	// Background image of the game panel. If this attribute is null the background
+	// is empty.
+	private Image background = null;
+
+	// ArrayList of all game characters to be displayed on the game panel. 
+	private ArrayList<GameCharacter> characters = new ArrayList<GameCharacter>();
+
+	public GamePanel() {
+		super();
+		background = loadImage("background.png");
+	}
+		
+	public Image loadImage(String resource) {
+		// Verwende Toolkit, um Bild zu laden
+		Toolkit tool = Toolkit.getDefaultToolkit();
+		// Das Bild soll aus der Resource (Datei im Projekt)
+		// resource geladen werden.
+		Image img = tool.getImage(GamePanel.class.getResource(resource));
+		// Der MediaTracker lädt die Datei in das Image
+		MediaTracker tracker = new MediaTracker(this);
+		tracker.addImage(img, 1);
+		try {
+			// Mediendateien können groß sein, also wird asynchron
+			// geladen. Wir warten hier einfach darauf, dass der
+			// MediaTracker fertig ist.
+			tracker.waitForID(1);
+		}
+		catch (InterruptedException exc) {
+			// Das Laden der Datei kann auch unterbrochen werden.
+			// Wir geben in diesem Fall eine Meldung auf der Konsole aus.
+			System.out.println("Loading background failed");
+		}
+		return img;		
+	}
 	
+	/**
+	 * Add a game character to the game panel. All game characters on the panel will be
+	 * displayed.
+	 * 
+	 * @param c new game character
+	 */
+	public void add(GameCharacter c)
+	{
+		characters.add(c);
+	}
+	
+	public boolean remove(GameCharacter c) {
+		return(characters.remove(c));
+	}
+
 	public void paint(Graphics gr) {
 		super.paint(gr);
 
-		gr.setColor(Color.red);
-		gr.fillOval(x, y, 60, 60);
-	}
-	
-	public void move(int dx, int dy) {
-		x = x + dx;
-		y = y + dy;
-		repaint();  // der Zustand hat sich geändert -> neu zeichnen
-	}
-	
-	public void actionPerformed(ActionEvent arg0) {
-		// Wird aufgerufen, wenn der Timer abläuft.
+		if (background != null) {
+			gr.drawImage(background, 0, 0, getWidth(), getHeight(), null);
+		}
 		
-		// TODO Ergänzen Sie hier zyklische Änderungen, wenn nötig
-		
-		// Starte Timer neu
-		timer.start();
-	}
-
-	public void start() {
-		// Oben links geht es los
-		x = 0;
-		y = 0;
-		
-		timer.start();
-	}
-
-	//@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Ergänzen Sie hier Ihren Kode um den Kreis mit der Tastatur zu steuern
-		
-	}
-
-	//@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Ergänzen Sie hier Ihren Kode um den Kreis mit der Tastatur zu steuern
-		
-	}
-
-	//@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Ergänzen Sie hier Ihren Kode um den Kreis mit der Tastatur zu steuern
+		// Iterate with iterator over all game characters and paint each on the
+		// graphics context gr.
+		// Iteriere in einer Schleife über alle Spielfiguren, um sie im Graphikkontext
+		// gr zu zeichnen.
+		for (Iterator<GameCharacter> i = characters.iterator(); i.hasNext();)
+		{
+			i.next().paint(gr);	
+		}
 		
 	}
 
